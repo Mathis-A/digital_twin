@@ -83,3 +83,11 @@ class Building:
 
     def change_name(self,name):
         self.name=name
+
+    def random_path(self):
+        '''
+        return a list of area describing the path taken by an entity that is in the building.
+        This gives a list L of int (number of the room) such that at the i-th unit of time, the entity is in
+        the romm n°L[i]
+        '''
+        pass
