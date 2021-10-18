@@ -58,3 +58,8 @@ class BuildingTest(unittest.TestCase):
         b.addAreas([ar3,ar4],1)
         b.addAreas(ar5,2)
         b.show()
+    
+    def test_inside(self):
+        ar3=Room([(0,0),(0,3),(3,3)])
+        self.assertTrue(ar3.inside((1,1)))
+        self.assertFalse(ar3.inside((2,1)))
