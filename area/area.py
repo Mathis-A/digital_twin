@@ -5,14 +5,14 @@ from walls.walls import Wall
 
 class Area:
     """
-        Creates an convex area from the points given
+        Creates an convex area from the given points
     """
     def __init__(self,points): 
         """
         Parameters
         ----------
-        corner : List
-            List containing elements representing the coordinates defining the area
+        points : List
+            Coordinates (x,y) of points that will create the Area by taking the hull
         """
         points=np.array(points)
 
@@ -21,19 +21,26 @@ class Area:
         assert len(points.shape)==2
 
         self.points=self.convexHull(points)
-        self.walls=[Wall(self.points[i],self.points[i+1]) for i in range(len(self.points)-1)]+[
-                    Wall(self.points[-1],self.points[0])]
+        self.walls=[Wall(self.points[i],self.points[i+1]) for i in range(len(self.points)-1)]
+        self.walls.append(Wall(self.points[-1],self.points[0]))
         self.coordinates=list(np.array(self.points).flatten()) # x1,y1,x2,y2,x3,y3...
     
     def convexHull(self,points):
+        """ Computes the convex hull of a given set of points in 2D
+
+        Parameters
+        ----------
+        points : List
+            coordinates in the form of a tuple : [(x1,y1),(x2,y2),...]
+
+        Returns
+        -------
+        List
+            coordinates of the hull, ordered counter clockwise
+        """
+        #bad way of taking the lower left-est point 
         pos_pivot=0
-        for i in range(1,len(points)):
-            if points[i][1]<points[pos_pivot][1]:
-                pos_pivot=i
-            elif points[i][1]==points[pos_pivot][1]:
-                if points[i][0]<points[pos_pivot][0]:
-                    pos_pivot=i
-        pivot=points[pos_pivot]
+        pivot=min(sorted(points,key=lambda p:p[0]), key=lambda p:p[1])
 
         # sort with pivot at first pos
         points=np.delete(points,pos_pivot,axis=0)
@@ -53,14 +60,33 @@ class Area:
         return convex_points
 
     def size(self):
+        """ Computes the area of the object
+
+        Returns
+        -------
+        int
+            Area of the object
+        """
         cum_sum=0
-        offset=abs(min(self.coordinates))+1
+        offset=abs(min(self.coordinates))+1 #every point is above the x axis
         for w in self.walls:
             x1,y1,x2,y2=w.coordinates
-            cum_sum-=(x2-x1)*(y1+offset+y2+offset)/2 #substract because the hull goes around counter-clockwise
+            cum_sum-=(x2-x1)*(y1+offset+y2+offset)/2 #substract because counter-clockwise
         return cum_sum
 
     def inside(self,pos):
+        """Checks if pos is in the object
+
+        Parameters
+        ----------
+        pos : tuple of size 2
+            Coordinates of the point to check
+
+        Returns
+        -------
+        boolean
+            whether pos is in the object
+        """
         new_hull=self.convexHull(self.points+[pos])
         print(new_hull)
         return new_hull==self.points

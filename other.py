@@ -1,9 +1,5 @@
 from area.area import Area, Room
 from building.building import Building
-from matplotlib.collections import PolyCollection
-import matplotlib.pyplot as plt
-import matplotlib.cm as cm
-import numpy as np
 
 ar1=Area([(0,0),(2,0),(2,3),(0,3)])
 ar2=Area([(2,0),(5,0),(5,3),(2,3)])
