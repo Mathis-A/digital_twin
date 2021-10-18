@@ -13,6 +13,15 @@ class Building:
         self.floor_height=3
 
     def addAreas(self,areas,floor=0):
+        """Adds a given area object to the building
+
+        Parameters
+        ----------
+        areas : 
+            Area
+        floor : int, optional
+            floor of the area, by default 0
+        """
         if not isinstance(areas,list):
             areas=[areas]
         for a in areas:
@@ -22,19 +31,21 @@ class Building:
             self.areas[floor].append(area)
 
     def addFloor(self,n=1):
+        """Adds a floor to the building
+
+        Parameters
+        ----------
+        n : int, optional
+            number of floors to add, by default 1
+        """
         assert n>=1
         self.floors+=n
         for i in range(n):
             self.areas.append([])
 
-    def show(self,floor='all'):
-        
-        if isinstance(floor,int):
-            to_show=self.areas[floor-1]
-            h=self.floor_height*(floor-1)
-        else:
-            to_show=self.areas
-        
+    def show(self):
+        """3D representation of the building
+        """
         to_show=self.areas
         fig = plt.figure(figsize=(6,6))
         ax = fig.add_subplot(111, projection='3d')
@@ -48,13 +59,8 @@ class Building:
                 verts.append(points)
                 h.append(self.floor_height*f)
 
-        colors=[]
-        while len(colors)<len(verts)-2:
-            colors+=['r','b','g']
-        if len(colors)<len(verts):
-            colors.append('r')
-        if len(colors)<len(verts):
-            colors.append('b')
+        colors=['r','b','g']*(len(verts)//3+1)
+        colors=colors[:len(verts)]
 
         poly=PolyCollection(verts,facecolors=colors)
         poly.set_alpha(0.7)
@@ -74,8 +80,6 @@ class Building:
         ax.set_zlim3d(0, h_max+1)
         plt.show()
             
-
-
 
     def change_name(self,name):
         self.name=name
