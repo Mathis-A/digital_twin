@@ -81,15 +81,13 @@ class Building:
         ax.set_zlim3d(0, h_max+1)
         plt.show()
             
-    def position(self,pos,floor=0):
+    def position(self,pos):
         """Returns the areas containing pos
 
         Parameters
         ----------
         pos : tuple of length 2 or 3
             Position x,y to check
-        floor : int, optional
-            floor in which to search, by default 0
 
         Returns
         -------
@@ -97,8 +95,8 @@ class Building:
             containing the point pos in the floor floor.
         """
         contains_pos=[]
-        for ar in self.areas[floor]:
-            if ar.inside(pos):
+        for ar in self.areas[pos[2]]:
+            if ar.inside((pos[0],pos[1])):
                 contains_pos.append(ar)
         return contains_pos
 

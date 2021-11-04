@@ -77,6 +77,6 @@ class BuildingTest(unittest.TestCase):
         b.addAreas([ar3,ar4],1)
         b.addAreas(ar5,2)
 
-        self.assertEqual(b.position((3,2)),[ar1,ar2])
-        self.assertEqual(b.position((1,2),1),[ar3])
-        self.assertEqual(b.position((1,-1),2),[])
+        self.assertEqual(b.position((3,2,0)),[ar1,ar2])
+        self.assertEqual(b.position((1,2,1)),[ar3])
+        self.assertEqual(b.position((1,-1,2)),[])
