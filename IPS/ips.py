@@ -10,6 +10,15 @@ class IPS():
         self.history=[[]]
     
     def add_client(self,n=1,c=None):
+        """Adds 'clients' : a point that will wander in the building
+
+        Parameters
+        ----------
+        n : int, optional
+            number of clients to add, by default 1
+        c : list, optional
+            coordinates to start with, has to be of size n, random by default 
+        """
         if not c:
             c=[]
             for i in range(n):
@@ -24,6 +33,8 @@ class IPS():
             self.history[-1].append(c[i])
     
     def move_clients(self):
+        """Iterates once the clients : moves in a random direction
+        """
         delta=0.1
         for i in range(len(self.clients)):
             floor=self.clients[i][-1]
@@ -34,12 +45,30 @@ class IPS():
             
 
     def sample_clients(self,n=1,time=10):
+        """Creates clients and iterates them
+
+        Parameters
+        ----------
+        n : int, optional
+            number of clients, by default 1
+        time : int, optional
+            number of iterations to be done, by default 10
+        """
         self.add_client(n=n)
         for _ in range(time-1):
             self.move_clients()
             self.history.append(self.clients.copy())
     
     def show_clusters(self,n_clusters,floor=0):
+        """Plots the different positions of the clients and groups them by KMeans clustering
+
+        Parameters
+        ----------
+        n_clusters : int
+            number of clusters to use
+        floor : int, optional
+            floor to monitor, by default 0
+        """
         X=np.concatenate(self.history)
         X_floor=X[X[:,2]==floor][:,:2] #coordinates (x,y) of points in desired floor
         Y = KMeans(n_clusters=n_clusters,random_state=0).fit_predict(X_floor)
