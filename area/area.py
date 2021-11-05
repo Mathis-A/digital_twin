@@ -88,7 +88,6 @@ class Area:
             whether pos is in the object
         """
         new_hull=self.convexHull(self.points+[pos])
-        print(new_hull)
         return new_hull==self.points
 
 class Room(Area):
