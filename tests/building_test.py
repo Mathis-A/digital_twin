@@ -1,5 +1,5 @@
 from area.area import Area, Room
-from walls.walls import Wall
+from element.walls import Wall
 from building.building import Building
 
 
