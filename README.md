@@ -40,5 +40,5 @@ Cs Refresh 2021
 
 [ ] I follow the clean code rules.
 
-[ ] I use and document some design patterns in my project. Examples
+[X] I use and document some design patterns in my project. Examples : see the compositeArea.py file that implements a composite pattern for areas.
 

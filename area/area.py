@@ -1,6 +1,6 @@
 import numpy as np
 from numpy.core.shape_base import hstack
-from walls.walls import Wall
+from element.walls import Wall
 
 
 class Area:
