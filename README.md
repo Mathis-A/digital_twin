@@ -1,6 +1,11 @@
 # Digital Twin 
 
-Implementation of a digital twin, an indoor position system. 
+## Description 
+This project implements digital twins for office buildings. The user can create copies of each area that constitute a room of the building by adding elements with a given type and positin. These elements can then be grouped to shape the areas that compose said building. One can then visualise the layout of the building and the different types of areas and elements. 
+
+The second feature of this application is the indoor positioning system that tracks the whereabouts of the occupants of the building. This allows the user to report at any given time the coordinates of each occupant and the type of area they are in. From this information we can then categorise the different areas depending on the number of occupants and represent with a heatmap the most popular areas of the building. 
+
+
 # Team Members
 
 Mathis Allard, Eliot Campos-Costa, Joseph McDonnell
