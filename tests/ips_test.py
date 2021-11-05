@@ -55,3 +55,9 @@ class IpsTest(unittest.TestCase):
         ips=IPS(b)
         ips.sample_clients(n=10,time=50)
         ips.show_clusters(4)
+    
+    def test_heatmap(self):
+        b=self.test_building()
+        ips=IPS(b)
+        ips.sample_clients(n=10,time=50)
+        ips.heatmap(4)
