@@ -1,3 +1,4 @@
+from operator import contains
 from numpy.lib.arraysetops import isin
 from area.area import Area
 from matplotlib.collections import PolyCollection
@@ -80,6 +81,24 @@ class Building:
         ax.set_zlim3d(0, h_max+1)
         plt.show()
             
+    def position(self,pos):
+        """Returns the areas containing pos
+
+        Parameters
+        ----------
+        pos : tuple of length 2 or 3
+            Position x,y to check
+
+        Returns
+        -------
+        List of Area
+            containing the point pos in the floor floor.
+        """
+        contains_pos=[]
+        for ar in self.areas[pos[2]]:
+            if ar.inside((pos[0],pos[1])):
+                contains_pos.append(ar)
+        return contains_pos
 
     def change_name(self,name):
         self.name=name
